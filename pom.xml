@@ -15,6 +15,7 @@
     <description>reactive</description>
     <properties>
         <java.version>17</java.version>
+        <image.name>cnj/docker</image.name>
     </properties>
     <dependencies>
         <dependency>
@@ -54,6 +55,33 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+<!--            <plugin>-->
+<!--                <groupId>com.spotify</groupId>-->
+<!--                <artifactId>dockerfile-maven-plugin</artifactId>-->
+<!--                <version>1.4.13</version>-->
+<!--                <executions>-->
+<!--                    <execution>-->
+<!--                        <id>default</id>-->
+<!--                        <goals>-->
+<!--                            <goal>build</goal>-->
+<!--                        </goals>-->
+<!--                    </execution>-->
+<!--                </executions>-->
+<!--                <configuration>-->
+<!--                    <repository>${image.name}</repository>-->
+<!--                    <tag>latest</tag>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--            <plugin>-->
+<!--                <groupId>com.google.cloud.tools</groupId>-->
+<!--                <artifactId>jib-maven-plugin</artifactId>-->
+<!--                <version>3.2.0</version>-->
+<!--                <configuration>-->
+<!--                    <to>-->
+<!--                        <image>${image.name}</image>-->
+<!--                    </to>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
         </plugins>
     </build>
 
