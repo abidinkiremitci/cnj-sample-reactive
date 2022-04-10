@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2022-04-10T15:12:00Z"
+  labels:
+    app: customers
+  name: customers
+  namespace: cnj
+  resourceVersion: "17682"
+  uid: 5949080b-0a46-4b88-9fa7-8b24c1470997
+spec:
+  clusterIP: 10.100.31.139
+  clusterIPs:
+  - 10.100.31.139
+  internalTrafficPolicy: Cluster
+  ipFamilies:
+  - IPv4
+  ipFamilyPolicy: SingleStack
+  ports:
+  - port: 8080
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app: customers
+  sessionAffinity: None
+  type: LoadBalancer
+status:
+  loadBalancer: {}
