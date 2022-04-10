@@ -18,6 +18,9 @@ pack build $IMAGE_NAME --path . -e BP_JVM_VERSION=17
 ## with spotify plugin
 #mvn -DskipTests clean package dockerfile:build -Dimage.name=$IMAGE_NAME
 
+## with spring-boot plugin / uses packeto as well
+#mvn -DskipTests clean package spring-boot:build-image -Dimage.name=$IMAGE_NAME
+
 ## Running the image
 docker run -p 8088:8088 -e SERVER_PORT=8088 $IMAGE_NAME
 

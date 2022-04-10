@@ -54,6 +54,9 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+<!--                <configuration>-->
+<!--                    <imageName>${image.name}</imageName>-->
+<!--                </configuration>-->
             </plugin>
 <!--            <plugin>-->
 <!--                <groupId>com.spotify</groupId>-->
