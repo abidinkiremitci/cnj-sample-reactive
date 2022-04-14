@@ -4,15 +4,22 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.availability.AvailabilityChangeEvent;
+import org.springframework.boot.availability.LivenessState;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import reactor.core.publisher.Flux;
+import reactor.core.publisher.Mono;
 import reactor.core.scheduler.Schedulers;
 
+import java.time.Duration;
 import java.util.concurrent.Executors;
 
 @SpringBootApplication
@@ -70,5 +77,38 @@ record Customer(@Id Integer id, String name) {
 interface CustomerRepository extends ReactiveCrudRepository<Customer, Integer> {
 
 }
+
+@Controller
+@ResponseBody
+class HealthRestController {
+    private final ApplicationContext context;
+
+    HealthRestController(ApplicationContext context) {
+        this.context = context;
+    }
+
+    @GetMapping("/wait")
+    Mono<Integer> relax() {
+        return Mono.just(1)
+                .doOnSubscribe(s-> System.out.println("Starting subscription"))
+                .doFinally(s-> System.out.println("Stopping subscription"))
+                .delayElement(Duration.ofSeconds(45));
+    }
+
+    @EventListener
+    public void onHealthStateChange(AvailabilityChangeEvent<LivenessState> livenessStateChange) {
+        var message = switch (livenessStateChange.getState()) {
+            case CORRECT -> "Horay :)";
+            case BROKEN -> "Shit happened!";
+        };
+        System.out.println(AvailabilityChangeEvent.class.getName() + " change: " + message);
+    }
+
+    @PostMapping("/down")
+    public void down() {
+        AvailabilityChangeEvent.publish(this.context, LivenessState.BROKEN);
+    }
+}
+
 
 

@@ -1,17 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  creationTimestamp: "2022-04-10T15:12:00Z"
+  creationTimestamp: "2022-04-12T21:01:20Z"
   labels:
     app: customers
   name: customers
   namespace: cnj
-  resourceVersion: "17682"
-  uid: 5949080b-0a46-4b88-9fa7-8b24c1470997
+  resourceVersion: "44919"
+  uid: 78dd4af4-5d31-45eb-8f38-ca552dedfecd
 spec:
-  clusterIP: 10.100.31.139
+  clusterIP: 10.105.203.125
   clusterIPs:
-  - 10.100.31.139
+  - 10.105.203.125
   internalTrafficPolicy: Cluster
   ipFamilies:
   - IPv4
